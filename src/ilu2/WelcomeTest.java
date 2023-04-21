@@ -10,6 +10,7 @@ class WelcomeTest {
 	@Test
 	void testWelcomeEX1() {
 		assertEquals("Hello, Bob",Welcome.welcome("Bob"));
+		assertEquals("Hello, Bob",Welcome.welcome("bob"));
 		assertEquals("Hello, Zorro",Welcome.welcome("Zorro"));
 		assertEquals("Hello, Dante from DMC 5",Welcome.welcome("Dante from DMC 5"));
 	}
@@ -23,8 +24,19 @@ class WelcomeTest {
 	@Test
 	void testWelcomeEX3() {
 		assertEquals("HELLO, JERRY !", Welcome.welcome("JERRY"));
-		assertEquals("HELLO, DANTE FROM DMC !",
-				Welcome.welcome("DANTE FROM DMC"));
+		assertEquals("HELLO, DANTE FROM DMC 5 !",
+				Welcome.welcome("DANTE FROM DMC 5"));
 		assertEquals("Hello, AMy", Welcome.welcome("AMy"));
+	}
+	
+	@Test
+	void testWelcomeEX4() {
+		assertEquals("Hello, Johnson, Barry", 
+				Welcome.welcome("Johnson,Barry"));
+		assertEquals("Hello, Cena, John",
+				Welcome.welcome(" Cena , John "));
+		assertEquals("Hello, Juan, Pedro",Welcome.welcome("juan,pedro"));
+		assertEquals("Hello, Dante from DMC5, Ada",
+				Welcome.welcome("dante from DMC5, ada"));
 	}
 }

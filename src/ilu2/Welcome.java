@@ -1,23 +1,38 @@
 package ilu2;
 
 public class Welcome {
+	private static String bonjour = "Hello, ";
 
 	public static String welcome (String input) {
 		StringBuilder sb = new StringBuilder();
-		if (isUpperCase(input) && !isEmpty(input)){
-			sb.append("HELLO, ");
-			sb.append(input);
-			sb.append(" !");
+		sb.append(bonjour);
+		if (isEmpty(input)){
+			sb.append("my friend");				
 		} else {
-			sb.append("Hello, ");
-			if (isEmpty(input)){
-				sb.append("my friend");				
+			if (input.contains(",")) {
+				String deuxNoms = caseTwoNames(input);
+				sb.append(deuxNoms);
 			} else {
-				sb.append(input);				
-			}
-		}		
-		return sb.toString();
+				input = firstLetterToUpperCase(input);
+				if (isUpperCase(input) && !isEmpty(input)){
+					sb.replace(0, bonjour.length(), bonjour.toUpperCase());
+					sb.append(input);
+					sb.append(" !");
+				} else {
+					sb.append(input);				
+				}
+			}		
 		}
+		return sb.toString();
+	}
+	
+	private static String firstLetterToUpperCase(String input) {
+		if (input.length() > 0) {
+		String first = input.substring(0, 1).toUpperCase();
+		return first + input.substring(1);
+		}
+		return input;
+	}
 	
 	private static boolean isEmpty(String input) {
 		return input.trim().equals("");
@@ -25,5 +40,16 @@ public class Welcome {
 	
 	private static boolean isUpperCase(String input) {
 		return input.equals(input.toUpperCase());
+	}
+	
+	private static String caseTwoNames(String input) {
+		String[] deuxNoms = {"",""};
+		deuxNoms = input.split(",");
+		deuxNoms[0] =deuxNoms[0].trim();
+		deuxNoms[1] =deuxNoms[1].trim();
+		for (int i = 0; i < deuxNoms.length; i++) {
+			deuxNoms[i] = firstLetterToUpperCase(deuxNoms[i]);
+		}
+		return deuxNoms[0] + ", " + deuxNoms[1];
 	}
 }
