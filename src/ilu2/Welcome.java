@@ -2,34 +2,29 @@ package ilu2;
 
 public class Welcome {
 	private static String bonjour = "Hello, ";
+	private static String rebonjour = "AND HELLO, ";
+	private static String separator = ", ";
 
 	public static String welcome (String input) {
+		input = firstLetterToUpperCase(input);
 		StringBuilder sb = new StringBuilder();
 		sb.append(bonjour);
 		if (isEmpty(input)){
-			sb.append("my friend");				
+			sb.append(caseEmpty(input));
+		} else if (input.contains(",")) {
+				sb.append(caseMultiNames(input));
 		} else {
-			if (input.contains(",")) {
-				String[] nameList = caseMultiNames(input);
-				for (int i = 0; i < nameList.length; i++) {
-					sb.append(nameList[i]);
-				}
+			if (isUpperCase(input)){
+					sb = caseUpperC(input);
 			} else {
-				input = firstLetterToUpperCase(input);
-				if (isUpperCase(input) && !isEmpty(input)){
-					sb.replace(0, bonjour.length(), bonjour.toUpperCase());
-					sb.append(input);
-					sb.append(" !");
-				} else {
 					sb.append(input);				
-				}
-			}		
-		}
+			}
+		}		
 		return sb.toString();
 	}
 	
 	private static String firstLetterToUpperCase(String input) {
-		if (input.length() > 0) {
+		if (!input.trim().equals("")) {
 		String first = input.substring(0, 1).toUpperCase();
 		return first + input.substring(1);
 		}
@@ -44,26 +39,60 @@ public class Welcome {
 		return input.equals(input.toUpperCase());
 	}
 	
-//	private static String caseTwoNames(String input) {
-//		String[] deuxNoms = {"",""};
-//		deuxNoms = input.split(",");
-//		deuxNoms[0] =deuxNoms[0].trim();
-//		deuxNoms[1] =deuxNoms[1].trim();
-//		for (int i = 0; i < deuxNoms.length; i++) {
-//			deuxNoms[i] = firstLetterToUpperCase(deuxNoms[i]);
-//		}
-//		return deuxNoms[0] + ", " + deuxNoms[1];
-//	}
+	private static StringBuilder caseUpperC(String input){
+		StringBuilder sb = new StringBuilder();
+		sb.append(bonjour.toUpperCase());
+		sb.append(input);
+		sb.append(" !");
+		return sb;
+	}
 	
-	private static String[] caseMultiNames(String input) {
+	private static StringBuilder caseEmpty(String input) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("my friend");
+		return sb;
+	}	
+	
+	private static StringBuilder caseMultiNames(String input) {
+		StringBuilder sb = new StringBuilder();
 		String[] names;
+		boolean shoutedNames = false;
 		names = input.split(",");
-		for (int i = 0; i < names.length; i++ ) {
+		int i;
+		for (i = 0 ; i < names.length; i++ ) {
 			names[i] = names[i].trim();
 			names[i] = firstLetterToUpperCase(names[i]);
+			if (isUpperCase(names[i])) 
+				shoutedNames = true;
+			sb.append(names[i]);
 			if (i < names.length - 1)
-				names[i] += ", ";
+				sb.append(separator);
 		}
-		return names;
+		if (shoutedNames)
+			sb = caseShoutedName(names);
+		return sb;
+	}
+	
+	private static StringBuilder caseShoutedName(String[] input) {
+		StringBuilder sb = new StringBuilder();
+		String[] nameList = new String[input.length -1];
+		String[] shoutedNameList = new String[1];
+		int lenNameList = 0;
+		for (int i = 0; i < input.length; i++) {
+			if (isUpperCase(input[i])) {
+				shoutedNameList[0] = input[i];
+			} else {
+				nameList[lenNameList] = input[i];
+				sb.append(nameList[lenNameList]);
+				if (lenNameList < nameList.length - 1)
+					sb.append(separator);
+				lenNameList++;
+			}	
+		}
+		sb.append(". ");
+		sb.append(rebonjour);
+		sb.append(shoutedNameList[0]);
+		sb.append(" !");
+		return sb;
 	}
 }
