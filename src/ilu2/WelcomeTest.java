@@ -31,28 +31,28 @@ class WelcomeTest {
 	
 	@Test
 	void testWelcomeEX4() {
-		assertEquals("Hello, Johnson, Barry", 
+		assertEquals("Hello, Johnson and Barry", 
 				Welcome.welcome("Johnson,Barry"));
-		assertEquals("Hello, Cena, John",
+		assertEquals("Hello, Cena and John",
 				Welcome.welcome(" Cena , John "));
-		assertEquals("Hello, Juan, Pedro",Welcome.welcome("juan,pedro"));
-		assertEquals("Hello, Dante from DMC5, Ada",
+		assertEquals("Hello, Juan and Pedro",Welcome.welcome("juan,pedro"));
+		assertEquals("Hello, Dante from DMC5 and Ada",
 				Welcome.welcome("dante from DMC5, ada"));
 	}
 	
 	@Test
 	void testWelcomeEX5() {
-		assertEquals("Hello, Amy, Bob, Jerry",
+		assertEquals("Hello, Amy, Bob and Jerry",
 				Welcome.welcome("Amy, bob,jerry"));
-		assertEquals("Hello, Metzabok, No-hek, Mihira, Majira",
+		assertEquals("Hello, Metzabok, No-hek, Mihira and Majira",
 				Welcome.welcome("metzabok, no-hek, mihira,majira"));
 	}
 	
 	@Test
 	void testWelcomeEX6() {
-		assertEquals("Hello, Amy, Jerry. AND HELLO, BOB !",
+		assertEquals("Hello, Amy and Jerry. AND HELLO, BOB !",
 				Welcome.welcome("Amy, BOB, Jerry"));
-		assertEquals("Hello, Sancho, Seth. AND HELLO, CLOUD !",
+		assertEquals("Hello, Sancho and Seth. AND HELLO, CLOUD !",
 				Welcome.welcome("CLOUD,sancho, Seth"));
 		
 	}
@@ -67,5 +67,11 @@ class WelcomeTest {
 				Welcome.welcome("pedro, DONALD, Pablo, DEMITRI, DVORAK, Piotr,Pamela"));
 		assertEquals("Hello, John. AND HELLO, JOHNSON !",
 				Welcome.welcome("john,JOHNSON"));
+	}
+	
+	@Test
+	void testWelcomeEX8() {
+		assertEquals("Hello, Bob and Amy", Welcome.welcome("bob    , amy "));
+		assertEquals("Hello, Riri, Fifi and Loulou", Welcome.welcome("    riri   , fifi   , Loulou   "));
 	}
 }
