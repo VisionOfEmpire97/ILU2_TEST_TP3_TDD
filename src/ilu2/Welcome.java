@@ -1,7 +1,5 @@
 package ilu2;
 
-import java.util.Iterator;
-
 public class Welcome {
 	private static final String BONJOUR = "Hello, ";
 	private static final String REBONJOUR = "AND HELLO, ";
